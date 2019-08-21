@@ -1,38 +1,24 @@
-const BigInt = require("apollo-type-bigint");
 const { gql } = require('apollo-server');
-const pool = require("./goblinsharksdb");
-const { find } = require('lodash');
-
-const fakeStates = [
-  {
-    abr: "CA",
-    total_dosage: 1000,
-    total_manufactured: 120
-  }
-]
+const pool = require("../db.js");
 
 const stateTypeDefs = gql`
-scalar BigInt
 
 type State {
   name: String
-  total_dosage: BigInt
+  total_dosage: String!
   total_manufactured: Int
-  # county: County
 }
 
 type Query {
-  state(abr: String!): State
+  state(state: String!): State
 }
 `;
 
 const stateTypeResolvers = {
   Query: {
     state(parent, args, context, info) {
- 
-    
-    return args.abr
-
+    // allowing child resolvers to access the arg -- 
+    return args.state
     } 
   },
   State: {
@@ -48,7 +34,6 @@ const stateTypeResolvers = {
       } else {
         return 'invalid state name'
       }
-      // return // todo: get name
     },
     async total_dosage(parent,args) {
       const dosageQuery = 
@@ -65,11 +50,14 @@ const stateTypeResolvers = {
       AND reporter_bus_act = 'MANUFACTURER' 
       AND buyer_state = $1`;
       const stateManufactured = await pool.query(manufacturedQuery, [parent]);  
-    
       return parseInt(stateManufactured.rows[0].sum);
+    },
+    county(parent,args){ // giving access state and county to child field nodes  
+      return {state: parent, county:args.county}
     }
   }
 }
+
 
 module.exports = {
   stateTypeDefs,
