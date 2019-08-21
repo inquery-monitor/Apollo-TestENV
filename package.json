@@ -1,0 +1,30 @@
+{
+  "name": "goblinsharks-apollo",
+  "version": "1.0.0",
+  "description": "Apollo sandbox for goblin shark monitoring",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bleep241/goblinsharks-apollo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bleep241/goblinsharks-apollo/issues"
+  },
+  "homepage": "https://github.com/bleep241/goblinsharks-apollo#readme",
+  "dependencies": {
+    "apollo-server": "^2.8.2",
+    "apollo-type-bigint": "^0.1.0",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "graphql": "^14.4.2",
+    "lodash": "^4.17.15",
+    "nodemon": "^1.19.1",
+    "pg": "^7.12.1"
+  }
+}
