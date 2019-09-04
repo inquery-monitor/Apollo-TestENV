@@ -2,24 +2,27 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const { ApolloServer, gql } = require('apollo-server');
-const { stateTypeDefs, stateTypeResolvers } = require('./types/state-type');
-const { countyTypeDefs, countyTypeResolvers } = require('./types/county-type')
+const { stateTypeDefs, updatedStateTypeResolvers } = require('./types/state-type');
+const { countyTypeDefs, updatedCountyTypeResolvers } = require('./types/county-type')
 const { merge } = require('lodash');
 const { makeExecutableSchema } = require('graphql-tools');
 
 
 const schema = makeExecutableSchema({
   typeDefs:[stateTypeDefs,countyTypeDefs],
-  resolvers:merge(stateTypeResolvers,countyTypeResolvers)
+  resolvers:merge(updatedStateTypeResolvers,updatedCountyTypeResolvers)
 })
 
 const server = new ApolloServer({
-  schema
+  schema,
+  engine: {
+    apiKey: "service:citrusvanilla-8362:Oh2M_mkeGIKXtv5Yvh3ttA"
+  }
 });
 
 
 
 
-server.listen().then(({url}) => {
+server.listen(8081).then(({url}) => {
   console.log(`The server is listening on ${url}`)
 });
