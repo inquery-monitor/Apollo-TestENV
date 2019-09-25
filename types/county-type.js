@@ -1,5 +1,6 @@
 const { gql } = require('apollo-server');
 const pool = require("../db.js");
+const { enableMonitoring } = require('goblin-ql')
 
 
 const countyTypeDefs = gql`
@@ -42,7 +43,11 @@ const countyTypeResolvers = {
   }
 }
 
+const updatedCountyTypeResolvers = enableMonitoring(countyTypeResolvers)
+// const updatedCountyTypeResolvers = new EnableMonitoring(countyTypeResolvers).resolvers
+
+
 module.exports = {
   countyTypeDefs,
-  countyTypeResolvers
+  updatedCountyTypeResolvers
 }
