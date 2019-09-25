@@ -6,7 +6,6 @@ const { stateTypeDefs, updatedStateTypeResolvers } = require('./types/state-type
 const { countyTypeDefs, updatedCountyTypeResolvers } = require('./types/county-type')
 const { merge } = require('lodash');
 const { makeExecutableSchema } = require('graphql-tools');
-const { trackError } = require('goblin-ql')
 
 
 const schema = makeExecutableSchema({
@@ -15,12 +14,7 @@ const schema = makeExecutableSchema({
 })
 
 const server = new ApolloServer({
-  schema,
-  formatError: async (err) => {
-    // console.log(err)
-    const time = Date.now();
-    await trackError(err,time);
-  }
+  schema
 });
 
 

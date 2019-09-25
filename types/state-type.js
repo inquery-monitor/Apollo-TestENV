@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server');
 const pool = require("../db.js");
-const { enableMonitoring } = require('goblin-ql')
+const { enableMonitoring } = require('inquery-monitor')
 
 const stateTypeDefs = gql`
 
