@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/bleep241/goblinsharks-apollo#readme",
   "dependencies": {
-    "apollo-server": "^2.8.2",
+    "apollo-server": "^2.14.2",
     "apollo-type-bigint": "^0.1.0",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
